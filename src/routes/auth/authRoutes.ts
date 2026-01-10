@@ -1,10 +1,10 @@
+import * as bcrypt from "bcrypt";
 import { Router } from "express";
-import { Register, register } from "../../schema/authSchema";
+import { jwtVerify, SignJWT } from "jose";
 import z from "zod";
 import { User } from "../../models/user";
-import * as bcrypt from "bcrypt";
+import { type Register, register } from "../../schema/authSchema";
 import { secret } from "../../utils/jwtSecrat";
-import { jwtVerify, SignJWT } from "jose";
 
 const router = Router();
 const result = secret();
@@ -37,7 +37,7 @@ export const signup = router.post("/signup", async (req, res) => {
 
   console.log(user._id);
 
-  res.json({
+  res.status(201).json({
     success: true,
     data: {
       id: user._id,
@@ -78,7 +78,7 @@ export const login = router.post("/login", async (req, res) => {
   console.log("\n");
   console.log(jwtSecret);
 
-  res.json({
+  res.status(200).json({
     success: "ok",
     _id: user._id,
     data: {
@@ -88,7 +88,7 @@ export const login = router.post("/login", async (req, res) => {
 });
 
 export const me = router.get("/me", async (req, res) => {
-  const authHeader = req.headers["authorization"];
+  const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {

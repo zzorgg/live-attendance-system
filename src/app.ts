@@ -1,9 +1,9 @@
+import cors from "cors";
 import express from "express";
 import helmet from "helmet";
-import cors from "cors";
 import connectDB from "./config/db";
+import { login, me, signup } from "./routes/auth/authRoutes";
 import health from "./routes/healthRoute";
-import { signup, login, me } from "./routes/auth/authRoutes";
 
 const app = express();
 
