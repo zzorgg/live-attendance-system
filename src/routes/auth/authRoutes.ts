@@ -28,6 +28,17 @@ export const signup = router.post("/signup", async (req, res) => {
 
   const hashpass = await bcrypt.hash(data.password, saltRounds);
 
+  const exists = await User.findOne({
+    email: data.email,
+  });
+
+  if (exists) {
+    return res.status(400).json({
+      success: false,
+      error: "User already exists",
+    });
+  }
+
   const user = await User.create({
     username: data.username,
     email: data.email,
@@ -40,7 +51,7 @@ export const signup = router.post("/signup", async (req, res) => {
   res.status(201).json({
     success: true,
     data: {
-      id: user._id,
+      _id: user._id,
       username: data.username,
       email: data.email,
       password: hashpass,
@@ -54,13 +65,13 @@ export const login = router.post("/login", async (req, res) => {
   const user = await User.findOne({ email });
   if (!user) {
     return res.status(404).json({
-      error: "not ofund",
+      error: "Invalid email or password",
     });
   }
   const match = await bcrypt.compare(password, String(user.password));
   if (!match) {
     return res.status(404).json({
-      error: "password do not match",
+      error: "Invalid email or password",
     });
   }
 
