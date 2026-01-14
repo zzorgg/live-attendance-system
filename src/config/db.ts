@@ -1,19 +1,20 @@
 import mongoose from "mongoose";
+import logger from "../logger";
 import config from "./config";
 
 const db = config.dbURI;
 
 if (!db) {
-  console.log("URL not set");
+  logger.error("urls is not set, exiting");
   process.exit(0);
 }
 
 const connectDB = async () => {
   try {
     await mongoose.connect(db);
-    console.log("MONGODB connected");
+    logger.info(`Mongodb connected: ${config.dbURI}`);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
 };
 

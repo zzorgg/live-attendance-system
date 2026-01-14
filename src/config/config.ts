@@ -7,6 +7,7 @@ interface Config {
   nodeEnv: string;
   dbURI: string;
   baseURI: string;
+  saltrounds: number;
 }
 
 const config: Config = {
@@ -14,6 +15,7 @@ const config: Config = {
   nodeEnv: String(process.env.NODE_ENV),
   dbURI: String(process.env.MONGODB_DATABASE),
   baseURI: String(process.env.BASE_URL),
+  saltrounds: Number(process.env.SALT_ROUNDS),
 };
 
 export default config;

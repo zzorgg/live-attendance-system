@@ -1,7 +1,6 @@
 import * as z from "zod";
 
 export const register = z.object({
-  _id: z.string(),
   username: z.string(),
   email: z.email(),
   password: z.string().min(6),

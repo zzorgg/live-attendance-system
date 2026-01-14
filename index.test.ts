@@ -67,7 +67,7 @@ function generateWord(prefix = "test") {
 
 describe("POST /auth/signup", () => {
   it("This test should create a new student user with correct response format", async () => {
-    const email = generateWord("saifalikhan");
+    const email = `${generateWord("saifalikhan")}@test.com`;
 
     const { status, data } = await request<SignupResponse>(
       "POST",

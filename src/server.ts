@@ -1,7 +1,9 @@
 import app from "./app";
 import config from "./config/config";
+import logger from "./logger";
 
 app.listen(config, () => {
-  console.log(`server running on the port ${config.port}`);
-  console.log(`mode ${config.nodeEnv}`);
+  logger.info(`Server is running on port ${config.port}`);
+  logger.info(`Go to: ${config.baseURI}`);
+  logger.info(`Mode: ${config.nodeEnv}`);
 });
