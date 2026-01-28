@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-theme="corporate" hx-allow="cross-origin">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Live Attendance</title>
+
+        <meta
+            name="description"
+            content="Real-time attendance tracking application"
+        />
+        <meta name="theme-color" content="#0d6efd" />
+
+        <link rel="icon" href="favicon.ico" />
+        <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+        <link rel="manifest" href="manifest.json" />
+
+        <link rel="stylesheet" href="/dist/output.css" />
+
+        <meta property="og:title" content="Live Attendance" />
+        <meta
+            property="og:description"
+            content="Real-time attendance tracking application"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/" />
+        <meta property="og:image" content="icons/og-image.png" />
+        <script
+            src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+            integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            htmx.config.selfRequestsOnly = false;
+        </script>
+    </head>
+
+    <body>
+        <main id="app" role="main">
+            <div
+                hx-get="/components/navbar.html"
+                hx-trigger="load"
+                hx-swap="outerHTML"
+            ></div>
+        </main>
+    </body>
+</html>

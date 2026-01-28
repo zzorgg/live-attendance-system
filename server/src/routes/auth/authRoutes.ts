@@ -1,5 +1,6 @@
 import { Router } from "express";
 import z from "zod";
+import logger from "../../logger";
 import { User } from "../../models/user";
 import { type Register, register } from "../../schema/authSchema";
 import { hashPass } from "../../utils/hashPassword";
@@ -26,7 +27,8 @@ export const signup = router.post("/signup", async (req, res) => {
   });
 
   if (exists) {
-    return res.status(400).json({
+    logger.error("User already exists");
+    return res.status(409).json({
       success: false,
       error: "User already exists",
     });
@@ -45,4 +47,5 @@ export const signup = router.post("/signup", async (req, res) => {
     success: true,
     data: safeUser,
   });
+  logger.info(`${safeUser?.username} has been registered`);
 });

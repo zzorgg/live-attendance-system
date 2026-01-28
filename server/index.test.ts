@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 // types
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = process.env.BASE_URL;
 
 interface ApiResponse<T = unknown> {
   success: boolean;
