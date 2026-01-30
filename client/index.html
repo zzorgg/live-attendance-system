@@ -31,6 +31,7 @@
             integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
             crossorigin="anonymous"
         ></script>
+        <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
         <script>
             htmx.config.selfRequestsOnly = false;
         </script>
@@ -42,6 +43,12 @@
                 hx-get="/components/navbar.html"
                 hx-trigger="load"
                 hx-swap="outerHTML"
+            ></div>
+            <div
+                id="modal-container"
+                hx-get="/components/modal.html"
+                hx-trigger="load"
+                hx-swap="innerHTML"
             ></div>
         </main>
     </body>

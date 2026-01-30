@@ -1,0 +1,72 @@
+<dialog id="modal_dialog" class="modal">
+    <form
+        hx-post="http://localhost:3001/auth/signup"
+        hx-trigger="submit"
+        hx-target="#signup-result"
+        hx-swap="innerHTML"
+        hx-ext="json-enc"
+        hx-on::after-request="if(event.detail.successful) modal_dialog.close()"
+    >
+        <fieldset
+            class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+        >
+            <label class="label">Username</label>
+            <input
+                type="text"
+                name="username"
+                class="input"
+                placeholder="Username"
+                required
+            />
+
+            <label class="label">Email</label>
+            <input
+                type="email"
+                name="email"
+                class="input"
+                placeholder="Email"
+                required
+            />
+
+            <label class="label">Password</label>
+            <input
+                type="password"
+                name="password"
+                class="input"
+                placeholder="Password"
+                required
+            />
+
+            <label class="label">Role</label>
+            <div class="flex gap-4">
+                <label class="label cursor-pointer gap-2">
+                    <input
+                        type="radio"
+                        name="role"
+                        value="teacher"
+                        class="radio radio-neutral"
+                        checked
+                    />
+                    <span class="label-text">Teacher</span>
+                </label>
+
+                <label class="label cursor-pointer gap-2">
+                    <input
+                        type="radio"
+                        name="role"
+                        value="student"
+                        class="radio radio-neutral"
+                    />
+                    <span class="label-text">Student</span>
+                </label>
+            </div>
+
+            <button class="btn btn-primary mt-4 w-full">Sign up</button>
+        </fieldset>
+    </form>
+</dialog>
+<div id="signup-result" class="hidden">
+    <script>
+        document.getElementById("modal_dialog").close();
+    </script>
+</div>
