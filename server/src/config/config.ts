@@ -6,18 +6,26 @@ interface Config {
   port: number;
   nodeEnv: string;
   dbURI: string;
-  baseURI: string;
+  baseUrl: string;
   saltrounds: number;
-  secret_key: string;
+  jwtSecretKey: string;
+  jwtExpiresIn: string;
+}
+
+function required(key: string, fallback?: string): string {
+  const value = process.env[key] ?? fallback;
+  if (!value) throw new Error(`Missing env: ${key}`)
+  return value;
 }
 
 const config: Config = {
-  port: Number(process.env.PORT),
-  nodeEnv: String(process.env.NODE_ENV),
-  dbURI: String(process.env.MONGODB_DATABASE),
-  baseURI: String(process.env.BASE_URL),
-  saltrounds: Number(process.env.SALT_ROUNDS),
-  secret_key: String(process.env.JWT_SECRET),
+  port: parseInt(required("PORT", "3001"), 10),
+  nodeEnv: required("NODE_ENV", "development"),
+  dbURI: required("MONGODB_DATABASE"),
+  baseUrl: required("BASE_URL", "http://localhost:3001"),
+  saltrounds: parseInt(required("SALT_ROUNDS", "10"), 10),
+  jwtSecretKey: required("JWT_SECRET_KEY"),
+  jwtExpiresIn: required("JWT_EXPIRES_IN", "2h")
 };
 
 export default config;

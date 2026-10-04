@@ -6,7 +6,7 @@ type JwtPayload = {
   role: string;
 };
 
-const secret = new TextEncoder().encode(config.secret_key);
+const secret = new TextEncoder().encode(config.jwtSecretKey);
 
 export async function createToken({ userId, role }: JwtPayload) {
   const token = await new SignJWT({ userId, role })
@@ -14,7 +14,7 @@ export async function createToken({ userId, role }: JwtPayload) {
     .setIssuedAt()
     .setIssuer("http://localhost:3001")
     .setAudience("https://localhost:3000")
-    .setExpirationTime("2h")
+    .setExpirationTime(config.jwtExpiresIn)
     .sign(secret);
 
   return token;

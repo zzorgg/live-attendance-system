@@ -2,10 +2,11 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import connectDB from "./config/db";
-import { errorHandler } from "./middlewear/error";
-import httpLogger from "./middlewear/httpLogger";
+import { errorHandler } from "./middleware/errorHandler";
+import httpLogger from "./middleware/httpLogger";
 import { signup } from "./routes/auth/authRoutes";
 import health from "./routes/healthRoute";
+import { errorResponse, successResponse } from "./utils/apiResponse";
 
 const app = express();
 
@@ -24,20 +25,15 @@ connectDB();
 
 app.get("/", (req, res) => {
   req.log.info("root: /");
-  res.status(200).json({
+  successResponse(res, {
     status: "ok",
     name: "live-attendance-system",
     version: "1.0.0",
-  });
+  }, 200)
 });
 
 app.use(health);
 app.use("/auth", signup);
 app.use(errorHandler);
-
-app.use((err: any, req: any, res: any, _next: any) => {
-  req.log.error(err, "Unhandled error");
-  res.status(500).json({ message: "Internal Server Error" });
-});
 
 export default app;
