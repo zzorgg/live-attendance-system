@@ -41,7 +41,7 @@ export const signup = router.post("/signup", async (req, res) => {
   }
 
   const user = await User.create({
-    username: data.username,
+    name: data.name,
     email: data.email,
     password: hashedPassword,
     role: data.role,
@@ -53,7 +53,7 @@ export const signup = router.post("/signup", async (req, res) => {
     success: true,
     data: safeUser,
   });
-  logger.info(`${safeUser?.username} has been registered`);
+  logger.info(`${safeUser?.name} has been registered`);
 });
 
 export const signin = router.post("/login", async (req, res) => {
