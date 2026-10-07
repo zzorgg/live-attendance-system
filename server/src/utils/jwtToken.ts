@@ -1,4 +1,4 @@
-import { SignJWT } from "jose";
+import { jwtVerify, SignJWT } from "jose";
 import config from "../config/config";
 
 type JwtPayload = {
@@ -18,4 +18,9 @@ export async function createToken({ userId, role }: JwtPayload) {
     .sign(secret);
 
   return token;
+}
+
+export async function verifyToken(token: string): Promise<JwtPayload> {
+  const { payload } = await jwtVerify(token, secret)
+  return payload as unknown as JwtPayload;
 }

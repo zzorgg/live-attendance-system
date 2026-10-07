@@ -1,13 +1,19 @@
 import mongoose from "mongoose";
-import { User } from "./user";
 
 const { Schema } = mongoose;
 
-const classSchema = new Schema({
-  className: { required: true, trim: true },
-  teacherId: { ref: 'User', required: true },
-  status: { enum: ["present", "absent"], required: true },
-}, {
+const classSchema = new Schema(
+  {
+    className: { type: String, required: true, trim: true },
+    teacherId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    studentIds: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
-  timestamps: true
-})
+export const Class = mongoose.model("Class", classSchema);
