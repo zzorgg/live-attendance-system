@@ -12,8 +12,6 @@ export async function createToken({ userId, role }: JwtPayload) {
   const token = await new SignJWT({ userId, role })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setIssuer("http://localhost:3001")
-    .setAudience("https://localhost:3000")
     .setExpirationTime(config.jwtExpiresIn)
     .sign(secret);
 
@@ -21,6 +19,9 @@ export async function createToken({ userId, role }: JwtPayload) {
 }
 
 export async function verifyToken(token: string): Promise<JwtPayload> {
-  const { payload } = await jwtVerify(token, secret)
+  const { payload } = await jwtVerify(token, secret);
+  if (payload.role !== "teacher" && payload.role !== "student") {
+    throw new Error("Invalid role")
+  }
   return payload as unknown as JwtPayload;
 }
